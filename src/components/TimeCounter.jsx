@@ -29,26 +29,29 @@ export default function TimeCounter({ startDate }) {
         <Clock size={20} className="text-emerald-400" />
         <h3 className="text-lg sm:text-xl font-bold">Tempo Juntos</h3>
       </div>
-      <div className="bg-zinc-900/60 backdrop-blur-md border border-white/10 rounded-[28px] p-6 relative overflow-hidden">
+      
+      {/* CARD COM GLASSMORPHISM */}
+      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 relative overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white/10 hover:border-white/20 transition-all duration-500">
+        
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-cyan-500/5"></div>
         <div className="flex justify-between items-center text-center relative z-10 px-2 sm:px-4">
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-white">{timeTogether.months}</span>
+            <span className="text-3xl sm:text-4xl font-black text-white drop-shadow-md">{timeTogether.months}</span>
             <span className="text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider font-bold mt-1">Meses</span>
           </div>
-          <span className="text-2xl text-zinc-700 font-light pb-4">:</span>
+          <span className="text-2xl text-white/30 font-light pb-4">:</span>
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-white">{timeTogether.days}</span>
+            <span className="text-3xl sm:text-4xl font-black text-white drop-shadow-md">{timeTogether.days}</span>
             <span className="text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider font-bold mt-1">Dias</span>
           </div>
-          <span className="text-2xl text-zinc-700 font-light pb-4">:</span>
+          <span className="text-2xl text-white/30 font-light pb-4">:</span>
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-white">{timeTogether.hours.toString().padStart(2, '0')}</span>
+            <span className="text-3xl sm:text-4xl font-black text-white drop-shadow-md">{timeTogether.hours.toString().padStart(2, '0')}</span>
             <span className="text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider font-bold mt-1">Horas</span>
           </div>
-          <span className="text-2xl text-zinc-700 font-light pb-4">:</span>
+          <span className="text-2xl text-white/30 font-light pb-4">:</span>
           <div className="flex flex-col items-center w-12 sm:w-14">
-            <span className="text-3xl sm:text-4xl font-black text-emerald-400 tabular-nums">{timeTogether.minutes.toString().padStart(2, '0')}</span>
+            <span className="text-3xl sm:text-4xl font-black text-emerald-400 tabular-nums drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">{timeTogether.minutes.toString().padStart(2, '0')}</span>
             <span className="text-[10px] sm:text-xs text-emerald-400/80 uppercase tracking-wider font-bold mt-1 animate-pulse">Min</span>
           </div>
         </div>
