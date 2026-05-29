@@ -6,22 +6,22 @@ import { Play, Heart, Lock, CheckCircle, X, Disc, MessageCircle, Wine, Film, Cof
 // ==========================================
 const storiesData = [
   {
-    date: "O Início",
-    bgImage: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1000&auto=format&fit=crop", 
-    title: "Como tudo começou...",
-    text: "Antes mesmo de ficarmos, eu já sabia que você era diferente. Cada conversa era um sinal de que algo incrível estava por vir.",
-    track: "Música de Teste",
-    artist: "Som do Sistema",
-    audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+    date: "Abertura",
+    bgImage: "/img/IMG-20250630-WA0054.jpg", 
+    title: "Bem-vinda à nossa história.",
+    text: "Preparei essa retrospectiva para te mostrar um pouquinho de como eu vejo a gente. Aperte o play e deslize para reviver a nossa jornada até aqui.",
+    track: "Asas",
+    artist: "Maskavo",
+    audioSrc: "/asas.mp3" // Lembre de colocar o arquivo asas.mp3 na pasta public
   },
   {
-    date: "A Conexão",
-    bgImage: "https://images.unsplash.com/photo-1529156069898-49953eb1f5ce?q=80&w=1000&auto=format&fit=crop",
-    title: "Nossas Primeiras Saídas",
-    text: "Eu lembro dos detalhes. As risadas, as músicas que compartilhamos. Ali eu já tava completamente na sua.",
+    date: "O Início (ou quase)",
+    bgImage: "/img/IMG-20260208-WA0034(1)(1)(1).jpg",
+    title: "Nosso Primeiro Momento",
+    text: "Se engana você se acha que tudo começou aqui. A verdade é que antes mesmo desse dia, cada conversa já me mostrava que você ia ser um problema (dos bons).",
     track: "Música Indie",
     artist: "Daily J",
-    audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+    audioSrc: "/dailyj.mp3"
   },
   {
     date: "28 de Março de 2026",
