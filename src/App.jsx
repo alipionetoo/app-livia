@@ -87,7 +87,6 @@ export default function App() {
                           </div>
                           <div className="flex flex-col">
                             <h4 className="text-white font-semibold text-sm sm:text-base leading-tight truncate">{chat.contact}</h4>
-                            <p className="text-zinc-400 text-[11px] mt-0.5">visto por último hoje</p>
                           </div>
                         </div>
                         <MoreVertical size={20} className="text-zinc-400" />
@@ -96,15 +95,33 @@ export default function App() {
                       {/* Área de Mensagens (Scrollável) */}
                       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-1.5 custom-scrollbar relative bg-[#0b141a]">
                         
-                        {/* Data Separadora */}
-                        <div className="flex justify-center mb-3 mt-1">
-                          <span className="bg-[#182229] text-zinc-400 text-[10px] sm:text-[11px] px-3 py-1 rounded-lg shadow-sm font-medium">
-                            {chat.date}
-                          </span>
-                        </div>
-
-                        {/* Balões de Chat */}
+                        {/* Balões de Chat e Datas Separadoras */}
                         {chat.dialogue.map((m, i) => {
+                          
+                          // Renderiza Divisória de Data
+                          if (m.isDate) {
+                            return (
+                              <div key={i} className="flex justify-center mb-3 mt-1">
+                                <span className="bg-[#182229] text-zinc-400 text-[10px] sm:text-[11px] px-3 py-1 rounded-lg shadow-sm font-medium">
+                                  {m.date}
+                                </span>
+                              </div>
+                            );
+                          }
+
+                          // Renderiza Mensagem de Sistema (Separador)
+                          if (m.isSystem) {
+                            return (
+                              <div key={i} className="flex justify-center mb-3 mt-1">
+                                <div className="bg-[#182229] border border-zinc-800/50 text-emerald-400/70 text-[10px] px-3 py-1.5 rounded-lg shadow-sm text-center flex items-center gap-1.5">
+                                  <Lock size={10} />
+                                  <span>{m.text}</span>
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          // Renderiza Figurinha
                           if (m.isSticker) {
                             return (
                               <div key={i} className={`flex flex-col relative max-w-[85%] ${m.who === 'me' ? 'self-end items-end' : 'self-start items-start'}`}>
@@ -116,6 +133,7 @@ export default function App() {
                             );
                           }
 
+                          // Renderiza Mensagem Normal, Audio, Resposta, ou Foto Visualização Única
                           return (
                             <div 
                               key={i} 
@@ -169,8 +187,9 @@ export default function App() {
                                 </div>
                               )}
                               
+                              {/* Texto Principal da Mensagem */}
                               {!m.isViewOnce && (
-                                <p className={`text-[13px] sm:text-[14px] text-white/95 leading-snug whitespace-pre-wrap break-words break-all sm:break-words 
+                                <p className={`text-[13px] sm:text-[14px] text-white/95 leading-snug whitespace-pre-wrap break-words 
                                   ${m.isAudio ? 'italic' : ''} 
                                   ${m.isLinkPreview ? 'text-blue-400 underline' : ''}`}
                                 >
