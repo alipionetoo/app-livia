@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, Play, MessageCircle, Lock, MapPin, Image as ImageIcon, CheckCircle } from 'lucide-react';
+import { Heart, Play, Lock, MapPin, Image as ImageIcon, CheckCircle, ArrowLeft, MoreVertical, Mic, Link as LinkIcon } from 'lucide-react';
 import { storiesData, chatLogs, initialCoupons } from './data/content';
 import TimeCounter from './components/TimeCounter';
 import StoryOverlay from './components/StoryOverlay';
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500 selection:text-white relative overflow-x-hidden">
       
-      {/* ORBES LUMINOSOS NO FUNDO (Realçam o efeito vidro dos cards) */}
+      {/* ORBES LUMINOSOS NO FUNDO */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-600/30 rounded-full mix-blend-screen filter blur-[120px] animate-pulse"></div>
         <div className="absolute top-[30%] right-[-10%] w-[500px] h-[500px] bg-cyan-600/20 rounded-full mix-blend-screen filter blur-[120px] animate-pulse delay-1000"></div>
@@ -66,19 +66,130 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
             
             <div className="flex flex-col gap-6 sm:gap-8">
+              
+              {/* EMULADOR DO WHATSAPP */}
               <section>
                 <div className="flex justify-between items-end mb-4 px-1">
                   <h3 className="text-lg sm:text-xl font-bold text-white/90">Provas do Crime 🕵️‍♂️</h3>
-                  <span className="text-xs sm:text-sm text-zinc-400">Dez. 2025</span>
+                  <span className="text-xs sm:text-sm text-emerald-400 font-medium tracking-wide uppercase">Criptografado</span>
                 </div>
+                
                 <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar snap-x snap-mandatory">
                   {chatLogs.map((chat, idx) => (
-                    <div key={idx} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] w-[85vw] sm:w-[280px] min-w-[260px] p-6 shrink-0 relative overflow-hidden snap-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white/10 transition-all duration-500">
-                      <div className="absolute top-[-10%] right-[-5%] p-3 opacity-5">
-                        <MessageCircle size={80} />
+                    <div key={idx} className="bg-[#0b141a] border border-zinc-800 rounded-[28px] w-[85vw] sm:w-[380px] shrink-0 flex flex-col h-[500px] snap-center shadow-xl overflow-hidden relative">
+                      
+                      {/* Top Bar - WhatsApp */}
+                      <div className="bg-[#202c33] px-4 py-3 flex items-center justify-between shrink-0 z-10 shadow-md">
+                        <div className="flex items-center gap-3">
+                          <ArrowLeft size={20} className="text-zinc-400" />
+                          <div className="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden shrink-0">
+                            <span className="text-white font-bold text-lg">{chat.contact.charAt(0)}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <h4 className="text-white font-semibold text-sm sm:text-base leading-tight truncate">{chat.contact}</h4>
+                            <p className="text-zinc-400 text-[11px] mt-0.5">visto por último hoje</p>
+                          </div>
+                        </div>
+                        <MoreVertical size={20} className="text-zinc-400" />
                       </div>
-                      <p className="text-xs sm:text-sm text-emerald-400 mb-3 font-bold uppercase tracking-wider">Para: {chat.para}</p>
-                      <p className="text-sm sm:text-base text-white/90 leading-relaxed font-medium">"{chat.msg}"</p>
+
+                      {/* Área de Mensagens (Scrollável) */}
+                      <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-1.5 custom-scrollbar relative bg-[#0b141a]">
+                        
+                        {/* Data Separadora */}
+                        <div className="flex justify-center mb-3 mt-1">
+                          <span className="bg-[#182229] text-zinc-400 text-[10px] sm:text-[11px] px-3 py-1 rounded-lg shadow-sm font-medium">
+                            {chat.date}
+                          </span>
+                        </div>
+
+                        {/* Balões de Chat */}
+                        {chat.dialogue.map((m, i) => {
+                          if (m.isSticker) {
+                            return (
+                              <div key={i} className={`flex flex-col relative max-w-[85%] ${m.who === 'me' ? 'self-end items-end' : 'self-start items-start'}`}>
+                                <div className="bg-[#ffeb3b] text-black font-black text-center p-3 rounded-2xl border-4 border-black rotate-[-4deg] shadow-lg text-xs w-48 mb-1">
+                                  {m.text}
+                                </div>
+                                <span className="text-[9px] text-white/50">{m.time}</span>
+                              </div>
+                            );
+                          }
+
+                          return (
+                            <div 
+                              key={i} 
+                              className={`max-w-[85%] rounded-xl px-2.5 pt-1.5 pb-1 flex flex-col relative shadow-sm mb-1
+                                ${m.who === 'me' 
+                                  ? 'bg-[#005c4b] self-end rounded-tr-sm' 
+                                  : 'bg-[#202c33] self-start rounded-tl-sm'}`}
+                            >
+                              {/* Elemento de Resposta (Reply) */}
+                              {m.replyTo && (
+                                <div className="bg-black/20 border-l-4 border-emerald-500 rounded p-1.5 mb-1.5 flex flex-col">
+                                  <span className="text-[10px] text-emerald-400 font-bold leading-none mb-1">{m.replyWho}</span>
+                                  <span className="text-[11px] text-white/70 line-clamp-3 leading-tight">{m.replyTo}</span>
+                                </div>
+                              )}
+
+                              {/* Preview do Link do Instagram */}
+                              {m.isLinkPreview && (
+                                <div className="bg-[#0b141a] rounded-lg mb-1.5 overflow-hidden border border-zinc-700">
+                                  <div className="p-2 flex gap-3 items-center bg-[#1c272e]">
+                                    <div className="w-10 h-10 bg-zinc-800 rounded-md shrink-0 overflow-hidden flex items-center justify-center">
+                                      <LinkIcon size={16} className="text-zinc-400" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                      <span className="text-white text-xs font-bold leading-tight line-clamp-1">Lívia Munhoz Vaz (@_liviam...</span>
+                                      <span className="text-zinc-400 text-[10px] mt-0.5">instagram.com</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Indicador de Visualização Única (Foto) */}
+                              {m.isViewOnce && (
+                                <div className="flex items-center gap-1.5 mb-0.5">
+                                  <div className={`w-3.5 h-3.5 rounded-full border border-dashed flex items-center justify-center ${m.who === 'me' ? 'border-emerald-300' : 'border-emerald-400'}`}>
+                                    <span className={`text-[8px] font-bold ${m.who === 'me' ? 'text-emerald-300' : 'text-emerald-400'}`}>1</span>
+                                  </div>
+                                  <span className={`text-[12px] font-bold italic ${m.who === 'me' ? 'text-emerald-300' : 'text-emerald-400'}`}>
+                                    {m.text}
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* Indicador de Áudio Transcrito */}
+                              {m.isAudio && !m.text.includes("Áudio (") && (
+                                <div className="flex items-center gap-1 mb-1.5 mt-0.5">
+                                  <Mic size={12} className={m.who === 'me' ? 'text-emerald-300' : 'text-emerald-400'} />
+                                  <span className={`text-[9px] font-bold uppercase tracking-wider ${m.who === 'me' ? 'text-emerald-300' : 'text-emerald-400'}`}>
+                                    Áudio Transcrito
+                                  </span>
+                                </div>
+                              )}
+                              
+                              {!m.isViewOnce && (
+                                <p className={`text-[13px] sm:text-[14px] text-white/95 leading-snug whitespace-pre-wrap break-words break-all sm:break-words 
+                                  ${m.isAudio ? 'italic' : ''} 
+                                  ${m.isLinkPreview ? 'text-blue-400 underline' : ''}`}
+                                >
+                                  {m.isAudio && !m.text.includes("Áudio (") ? `"${m.text}"` : m.text}
+                                </p>
+                              )}
+                              
+                              <span className="text-[9px] text-white/50 self-end mt-1 ml-4 leading-none">{m.time}</span>
+                              
+                              {/* Reação do WhatsApp */}
+                              {m.reaction && (
+                                <div className="absolute -bottom-3 right-2 bg-[#202c33] text-[10px] px-1.5 py-0.5 rounded-full border-[1.5px] border-[#0b141a] z-10 shadow-sm">
+                                  {m.reaction}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -131,7 +242,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* CAIXA FLUTUANTE GLASSMORPHISM */}
                   <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-xl p-4 rounded-[24px] border border-white/20 shadow-lg flex justify-between items-center transition-all duration-500 group-hover:bg-white/15">
                     <div>
                       <p className="text-base sm:text-lg font-bold text-white leading-tight mb-1">Praia do Cassino</p>
@@ -205,8 +315,12 @@ export default function App() {
       />
 
       <style dangerouslySetInnerHTML={{__html: `
-        .custom-scrollbar::-webkit-scrollbar { display: none; }
-        .custom-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Scrollbar mais grossa e visível para Desktop */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.4); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.8); }
+        
         @keyframes zoomInOut {
           0% { transform: scale(1); }
           50% { transform: scale(1.05); }
